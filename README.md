@@ -72,7 +72,4 @@ Isso abrirá a interface web no navegador (normalmente em http://localhost:8501)
 
 Contribuições são bem-vindas. Abra uma issue ou um pull request descrevendo a alteração proposta.
 
-## Licença
-
-Coloque aqui a licença do seu projeto (por exemplo, MIT) se desejar compartilhar publicamente.
 

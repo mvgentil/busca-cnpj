@@ -8,6 +8,10 @@ def format_cnpj(cnpj):
 def format_cep(cep):
     return f"{cep[:5]}-{cep[5:]}"
 
+def format_cpf(cpf):
+    cpf = re.sub(r'\D', '#', cpf)
+    return f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+
 st.set_page_config(page_title="Busca CNPJ", layout="centered", page_icon="🏢")
 st.title("Busca CNPJ da BrasilAPI 🏢")
 
@@ -68,7 +72,13 @@ if st.button("Buscar"):
                     if socios:
                         for socio in socios:
                             st.write(f"- Nome: {socio.get('nome_socio')} ({socio.get('qualificacao_socio')})")
-                            st.write(f"- CPF/CNPJ: {socio.get('cnpj_cpf_do_socio')}")
+                            cnpj_cpf = socio.get('cnpj_cpf_do_socio')
+                            if cnpj_cpf and len(cnpj_cpf) == 14:
+                                st.write(f"  - CNPJ: {format_cnpj(cnpj_cpf)}")
+                            elif cnpj_cpf and len(cnpj_cpf) == 11:
+                                st.write(f"  - CPF: {format_cpf(cnpj_cpf)}")
+                            
+                            st.write(f"- Faixa etária: {socio.get('faixa_etaria')}")
                             st.write(f"- Data Entrada na Sociedade: {socio.get('data_entrada_sociedade')}")
                             st.write("---")
                     else:
